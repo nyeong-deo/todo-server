@@ -71,7 +71,16 @@ public class TaskService {
         return this.entityToObject(updated);
     }
 
-    public boolean delete(Long id) {
+    public TaskModel updateStatus(Long id, TaskStatus status) {
+        var exist = this.getById(id);
+        exist.setStatus(status);
+
+        var statusUpdated = this.taskRepository.save(exist);
+        return this.entityToObject(statusUpdated);
+    }
+
+
+        public boolean delete(Long id) {
         try{
             this.taskRepository.deleteById(id);
         }
@@ -102,6 +111,7 @@ public class TaskService {
                 .updatedAt(e.getUpdatedAt().toLocalDateTime())
                 .build();
     }
+
 
 
 }
